@@ -3,25 +3,25 @@ import { useContext, useState } from "react";
 import { SumContext } from "../store";
 
 const CustomButton = ({ name }: { name: number }) => {
-  const context = useContext(SumContext);
+  const { setselected } = useContext(SumContext) || {};
   const [toggle, setToggle] = useState(false);
-  if (!context) return null;
 
+  if (!setselected) return null;
   return (
     <Button
+      style={{ width: 60, marginRight: 3 }}
       onClick={() => {
-        console.log(context.values());
         setToggle((prev) => !prev);
 
         if (toggle) {
-          context.delete(name);
+          setselected((prev) => prev.filter((n) => n !== name));
         } else {
-          context.add(name);
+          setselected((prev) => [...prev, name]);
         }
       }}
       type={toggle ? "primary" : undefined}
     >
-      Button ({name}) {toggle ? "(Clicked)" : ""}
+      ({name})
     </Button>
   );
 };

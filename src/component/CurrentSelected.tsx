@@ -3,15 +3,16 @@ import { useContext } from "react";
 import { SumContext } from "../store";
 
 const CurrentSelected = () => {
-  console.log("CurrentSelected");
-  const context = useContext(SumContext);
-  if (!context) return null;
-  const set = context.values();
-  console.log(set);
-  const selected = Array.from(set);
-  console.log(selected);
+  const { selected } = useContext(SumContext) || {};
+  if (!selected) return null;
+
   return (
-    <Typography.Title>Current Selected: {selected.join(",")}</Typography.Title>
+    <>
+      <Typography.Title>Current Selected: </Typography.Title>
+      <Typography.Paragraph style={{ fontSize: 24 }}>
+        {selected.join(",")}
+      </Typography.Paragraph>
+    </>
   );
 };
 
